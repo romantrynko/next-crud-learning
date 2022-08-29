@@ -27,7 +27,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-        <div className="container mx-auto">
+        <div className="container mx-auto py-6">
           <From />
         </div>
 
