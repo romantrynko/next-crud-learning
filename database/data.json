@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "name": "Dean Lynch",
+    "avatar": "https://randomuser.me/portraits/men/1.jpg",
+    "email": "deanLynch@gmail.com",
+    "salary": "25000",
+    "date": "2002-05-08",
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "name": "Roman Lynch",
+    "avatar": "https://randomuser.me/portraits/men/2.jpg",
+    "email": "romanLynch@gmail.com",
+    "salary": "20000",
+    "date": "1970-01-18",
+    "status": "Active"
+  },
+  {
+    "id": 3,
+    "name": "Nazar Lynch",
+    "avatar": "https://randomuser.me/portraits/men/3.jpg",
+    "email": "nazarLynch@gmail.com",
+    "salary": "28000",
+    "date": "1988-08-08",
+    "status": "Active"
+  },
+  {
+    "id": 4,
+    "name": "Adam Lynch",
+    "avatar": "https://randomuser.me/portraits/men/4.jpg",
+    "email": "adamLynch@gmail.com",
+    "salary": "43000",
+    "date": "1998-03-07",
+    "status": "Active"
+  },
+  {
+    "id": 5,
+    "name": "Kris Lynch",
+    "avatar": "https://randomuser.me/portraits/men/5.jpg",
+    "email": "krisLynch@gmail.com",
+    "salary": "55000",
+    "date": "2000-06-10",
+    "status": "Active"
+  }
+]
