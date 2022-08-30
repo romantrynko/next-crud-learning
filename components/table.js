@@ -1,7 +1,17 @@
+import { useEffect, useState } from 'react';
 import { BiEdit, BiTrashAlt } from 'react-icons/bi';
-import data from '../database/data.json';
+// import data from '../database/data.json';
+import { getUser } from '../lib/helper';
+import { useQuery } from 'react-query';
 
 export const Table = () => {
+  // const [users, setUsers] = useState([]);
+
+  const { isLoading, error, data } = useQuery('users', getUser);
+
+  if (isLoading) return <div>Employee is loading</div>;
+  if (error) return <div>Got Error {error}</div>;
+
   return (
     <table className="min-w-full table-auto">
       <thead>
