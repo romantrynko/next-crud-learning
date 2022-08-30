@@ -26,7 +26,11 @@ export const Table = () => {
           </th>
         </tr>
       </thead>
-      <tbody className="bg-gray-200">{data.map((item) => Tr(item))}</tbody>
+      <tbody className="bg-gray-200">
+        {data.map((item, index) => (
+          <Tr {...item} key={index} />
+        ))}
+      </tbody>
     </table>
   );
 };
@@ -35,7 +39,7 @@ const Tr = ({ id, name, avatar, email, salary, date, status }) => {
   return (
     <tr>
       <td className="px-16 py-2 flex flex-row items-center">
-        <img src={avatar || '#'} alt="img" />
+        <img src={avatar || '#'} alt="img" className="rounded-full" />
         <span className="text-center ml-2 font-semibold">
           {name || 'Uknown'}
         </span>
