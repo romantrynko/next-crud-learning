@@ -1,8 +1,32 @@
-export const From = () => {
+import { useReducer } from 'react';
+import { BiPlus } from 'react-icons/bi';
+import { Error } from './error';
+import { Success } from './success';
+
+const formReducer = (state, event) => {
+  return {
+    ...state,
+    [event.target.name]: event.target.value
+  };
+};
+
+export const Form = () => {
+  const [formData, setFormData] = useReducer(formReducer, {});
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (Object.keys(formData).length === 0) return console.log('Empty data');
+    console.log(formData);
+  };
+
+  if (Object.keys(formData).length > 0)
+    return <Error message="Data added"></Error>;
+
   return (
-    <form className="grid lg:grid-cols-2 w-4/6 gap-4">
+    <form onSubmit={handleSubmit} className="grid lg:grid-cols-2 w-4/6 gap-4">
       <div className="input-type">
         <input
+          onChange={setFormData}
           type="text"
           name="firstname"
           placeholder="First Name"
@@ -11,6 +35,7 @@ export const From = () => {
       </div>
       <div className="input-type">
         <input
+          onChange={setFormData}
           type="text"
           name="lastname"
           placeholder="Last Name"
@@ -19,6 +44,7 @@ export const From = () => {
       </div>
       <div className="input-type">
         <input
+          onChange={setFormData}
           type="text"
           name="email"
           placeholder="Email"
@@ -27,6 +53,7 @@ export const From = () => {
       </div>
       <div className="input-type">
         <input
+          onChange={setFormData}
           type="text"
           name="salary"
           placeholder="Salary"
@@ -36,6 +63,7 @@ export const From = () => {
 
       <div className="input-type">
         <input
+          onChange={setFormData}
           type="date"
           name="date"
           placeholder="Salary"
@@ -46,6 +74,7 @@ export const From = () => {
       <div className="flex gap-10 items-center">
         <div className="form-check">
           <input
+            onChange={setFormData}
             type="radio"
             name="status"
             value="Active"
@@ -58,6 +87,7 @@ export const From = () => {
         </div>
         <div className="form-check">
           <input
+            onChange={setFormData}
             type="radio"
             name="status"
             value="Inactive"
@@ -72,6 +102,9 @@ export const From = () => {
 
       <button className="flex justify-center text-md w-2/6 bg-green-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-green-500 hover:text-green-500 ">
         Add
+        <span className="px-1">
+          <BiPlus size={24}></BiPlus>
+        </span>
       </button>
     </form>
   );
