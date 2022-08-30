@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { BiEdit, BiTrashAlt } from 'react-icons/bi';
-// import data from '../database/data.json';
-import { getUser } from '../lib/helper';
+import { getUsers } from '../lib/helper';
 import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toggleChangeAction } from '../redux/reducer';
 
 export const Table = () => {
-  // const [users, setUsers] = useState([]);
-
-  const { isLoading, error, data } = useQuery('users', getUser);
+  const { isLoading, error, data } = useQuery('users', getUsers);
 
   if (isLoading) return <div>Employee is loading</div>;
   if (error) return <div>Got Error {error}</div>;
@@ -46,6 +46,13 @@ export const Table = () => {
 };
 
 const Tr = ({ id, name, avatar, email, salary, date, status }) => {
+  const visible = useSelector((state) => state.app.client.toggleForm);
+  const dispatch = useDispatch();
+
+  const onUpdate = () => {
+    dispatch(toggleChangeAction());
+  };
+
   return (
     <tr>
       <td className="px-16 py-2 flex flex-row items-center">
@@ -71,13 +78,17 @@ const Tr = ({ id, name, avatar, email, salary, date, status }) => {
       </td>
       <td className="px-16 py-2 items-center">
         <button className="cursor">
-          <span className="bg-green-500 text-white px-5 py-1 rounded-full">
+          <span
+            className={`${
+              status === 'Active' ? 'bg-green-500' : 'bg-rose-500'
+            } text-white px-5 py-1 rounded-full`}
+          >
             {status || 'Uknown'}
           </span>
         </button>
       </td>
       <td className="px-16 py-2 flex justify-around gap-5">
-        <button className="cursor">
+        <button className="cursor" onClick={onUpdate}>
           <BiEdit size={25} color="rgb(34,197,94)" />
         </button>
         <button className="cursor">
