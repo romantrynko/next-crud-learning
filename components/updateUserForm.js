@@ -1,11 +1,19 @@
 import { BiBrush } from 'react-icons/bi';
-import { useQuery } from 'react-query';
-import { getUser } from '../lib/helper';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { getUser, updateUser, getUsers } from '../lib/helper';
 
 export const UpdateUserForm = ({ formId, formData, setFormData }) => {
+  const queryClient = useQueryClient();
+
   const { isLoading, isError, data, error } = useQuery(['users', formId], () =>
     getUser(formId)
   );
+  const UpdateMutation = useMutation((newData) => updateUser(formId, newData), {
+    onSuccess: async (data) => {
+      queryClient.prefetchQuery('users', getUsers);
+      console.log('data updated ');
+    }
+  });
 
   if (isLoading) return <div>Loading</div>;
   if (isError) return <div>Error</div>;
@@ -13,10 +21,14 @@ export const UpdateUserForm = ({ formId, formData, setFormData }) => {
   const { name, avatar, salary, date, email, status } = data;
   const [firstname, lastname] = name ? name.split(' ') : formData;
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); 
-    if (Object.keys(formData).length === 0) return console.log('Empty data');
-    console.log(formData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let userName = `${formData.firstname ?? firstname} ${
+      formData.lastname ?? lastname
+    }`;
+
+    let updated = Object.assign({}, data, formData, { name: userName });
+    await UpdateMutation.mutate(updated);
   };
 
   return (
@@ -77,7 +89,7 @@ export const UpdateUserForm = ({ formId, formData, setFormData }) => {
         <div className="form-check">
           <input
             onChange={setFormData}
-            defaultChecked={status == "Active"}
+            defaultChecked={status == 'Active'}
             type="radio"
             name="status"
             value="Active"
@@ -91,7 +103,7 @@ export const UpdateUserForm = ({ formId, formData, setFormData }) => {
         <div className="form-check">
           <input
             onChange={setFormData}
-            defaultChecked={status == "Inactive"}
+            defaultChecked={status == 'Inactive'}
             type="radio"
             name="status"
             value="Inactive"
