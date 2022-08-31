@@ -18,8 +18,8 @@ export const UpdateUserForm = () => {
     console.log(formData);
   };
 
-  if (Object.keys(formData).length > 0)
-    return <Error message="Data added"></Error>;
+  // if (Object.keys(formData).length > 0)
+  //   return <Error message="Data added"></Error>;
 
   return (
     <form onSubmit={handleSubmit} className="grid lg:grid-cols-2 w-4/6 gap-4">

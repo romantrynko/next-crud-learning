@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
-import { BiEdit, BiTrashAlt } from 'react-icons/bi';
 import { getUsers } from '../lib/helper';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { toggleChangeAction } from '../redux/reducer';
+import UserLine from './UserLine';
 
 export const Table = () => {
+
   const { isLoading, error, data } = useQuery('users', getUsers);
 
   if (isLoading) return <div>Employee is loading</div>;
@@ -38,63 +36,9 @@ export const Table = () => {
       </thead>
       <tbody className="bg-gray-200">
         {data.map((item, index) => (
-          <Tr {...item} key={index} />
+          <UserLine {...item} key={index} />
         ))}
       </tbody>
     </table>
-  );
-};
-
-const Tr = ({ id, name, avatar, email, salary, date, status }) => {
-  const visible = useSelector((state) => state.app.client.toggleForm);
-  const dispatch = useDispatch();
-
-  const onUpdate = () => {
-    dispatch(toggleChangeAction());
-  };
-
-  return (
-    <tr>
-      <td className="px-16 py-2 flex flex-row items-center">
-        <img src={avatar || '#'} alt="img" className="rounded-full" />
-        <span className="text-center ml-2 font-semibold">
-          {name || 'Uknown'}
-        </span>
-      </td>
-      <td className="px-16 py-2 items-center">
-        <span className="text-center ml-2 font-semibold">
-          {email || 'Uknown'}
-        </span>
-      </td>
-      <td className="px-16 py-2 items-center">
-        <span className="text-center ml-2 font-semibold">
-          {salary || 'Uknown'}
-        </span>
-      </td>
-      <td className="px-16 py-2 items-center">
-        <span className="text-center ml-2 font-semibold">
-          {date || 'Uknown'}
-        </span>
-      </td>
-      <td className="px-16 py-2 items-center">
-        <button className="cursor">
-          <span
-            className={`${
-              status === 'Active' ? 'bg-green-500' : 'bg-rose-500'
-            } text-white px-5 py-1 rounded-full`}
-          >
-            {status || 'Uknown'}
-          </span>
-        </button>
-      </td>
-      <td className="px-16 py-2 flex justify-around gap-5">
-        <button className="cursor" onClick={onUpdate}>
-          <BiEdit size={25} color="rgb(34,197,94)" />
-        </button>
-        <button className="cursor">
-          <BiTrashAlt size={25} color="red" />
-        </button>
-      </td>
-    </tr>
   );
 };
