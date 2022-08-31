@@ -25,7 +25,7 @@ const UserLine = ({ _id, name, avatar, email, salary, date, status }) => {
   };
 
   return (
-    <tr className="border-b border-gray-300 ">
+    <tr className="border-t-4 border-white ">
       <td className="px-16 py-2 flex flex-row items-center">
         <img src={avatar || '#'} alt="img" className="rounded-full" />
         <span className="text-center ml-2 font-semibold">

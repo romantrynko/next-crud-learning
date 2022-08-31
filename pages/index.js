@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BiUserPlus } from 'react-icons/bi';
 import { Form } from '../components/form';
 import { Table } from '../components/table';
-import { toggleChangeAction } from '../redux/reducer';
+import { deleteAction, toggleChangeAction } from '../redux/reducer';
 import DeleteComponent from '../components/deleteComponent';
 import { deleteUser, getUsers } from '../lib/helper';
 import { useQueryClient } from 'react-query';
@@ -20,11 +20,15 @@ export default function Home() {
   const deleteHandler = async () => {
     if (deleteId) {
       await deleteUser(deleteId);
-      await queryClient.prefetchQuery('users', getUsers)
+      await queryClient.prefetchQuery('users', getUsers);
+      await dispatch(deleteAction(null));
     }
   };
 
-  const cancelHandler = () => {};
+  const cancelHandler = async () => {
+    console.log('cancel');
+    await dispatch(deleteAction(null));
+  };
 
   return (
     <section>
@@ -57,7 +61,8 @@ export default function Home() {
               )}
             </button>
           </div>
-          {DeleteComponent({ deleteHandler, cancelHandler })}
+          {/* delete confirm modal */}
+          {deleteId ? DeleteComponent({ deleteHandler, cancelHandler }) : <></>}
         </div>
         <div className="container mx-auto py-6">
           {visible ? <Form /> : <></>}
