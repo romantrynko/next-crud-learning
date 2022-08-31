@@ -1,6 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleChangeAction, updateAction } from '../redux/reducer';
+import {
+  deleteAction,
+  toggleChangeAction,
+  updateAction
+} from '../redux/reducer';
 import { BiEdit, BiTrashAlt } from 'react-icons/bi';
+import { useQueryClient } from 'react-query';
 
 const UserLine = ({ _id, name, avatar, email, salary, date, status }) => {
   const visible = useSelector((state) => state.app.client.toggleForm);
@@ -10,6 +15,12 @@ const UserLine = ({ _id, name, avatar, email, salary, date, status }) => {
     dispatch(toggleChangeAction(_id));
     if (visible) {
       dispatch(updateAction(_id));
+    }
+  };
+
+  const onDelete = () => {
+    if (!visible) {
+      dispatch(deleteAction(_id));
     }
   };
 
@@ -51,7 +62,7 @@ const UserLine = ({ _id, name, avatar, email, salary, date, status }) => {
         <button className="cursor" onClick={onUpdate}>
           <BiEdit size={25} color="rgb(34,197,94)" />
         </button>
-        <button className="cursor">
+        <button className="cursor" onClick={onDelete}>
           <BiTrashAlt size={25} color="red" />
         </button>
       </td>

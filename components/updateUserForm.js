@@ -10,6 +10,7 @@ export const UpdateUserForm = ({ formId, formData, setFormData }) => {
   );
   const UpdateMutation = useMutation((newData) => updateUser(formId, newData), {
     onSuccess: async (data) => {
+      // queryClient.setQueryData('users', (old) => [data]);
       queryClient.prefetchQuery('users', getUsers);
       console.log('data updated ');
     }

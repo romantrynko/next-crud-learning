@@ -4,14 +4,27 @@ import { BiUserPlus } from 'react-icons/bi';
 import { Form } from '../components/form';
 import { Table } from '../components/table';
 import { toggleChangeAction } from '../redux/reducer';
+import DeleteComponent from '../components/deleteComponent';
+import { deleteUser, getUsers } from '../lib/helper';
+import { useQueryClient } from 'react-query';
 
 export default function Home() {
-  const visible = useSelector((state) => state.app.client.toggleForm);
+  const { visible, deleteId } = useSelector((state) => state.app.client);
   const dispatch = useDispatch();
+  const queryClient = useQueryClient();
 
   const handler = () => {
     dispatch(toggleChangeAction());
   };
+
+  const deleteHandler = async () => {
+    if (deleteId) {
+      await deleteUser(deleteId);
+      await queryClient.prefetchQuery('users', getUsers)
+    }
+  };
+
+  const cancelHandler = () => {};
 
   return (
     <section>
@@ -36,7 +49,7 @@ export default function Home() {
                 <>
                   Add Employee
                   <span className="px-1">
-                    <BiUserPlus size={23}/>
+                    <BiUserPlus size={23} />
                   </span>
                 </>
               ) : (
@@ -44,9 +57,10 @@ export default function Home() {
               )}
             </button>
           </div>
+          {DeleteComponent({ deleteHandler, cancelHandler })}
         </div>
         <div className="container mx-auto py-6">
-          {visible ? <Form/> : <></>}
+          {visible ? <Form /> : <></>}
         </div>
 
         <div className="container mx-auto">
