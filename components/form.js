@@ -1,9 +1,24 @@
 import { AddUserForm } from './addUserForm';
 import { UpdateUserForm } from './updateUserForm';
 import { useSelector } from 'react-redux';
+import { useReducer } from 'react';
+
+const formReducer = (state, event) => {
+  return {
+    ...state,
+    [event.target.name]: event.target.value
+  };
+};
 
 export const Form = () => {
-  const visible = useSelector((state) => state.app.client.toggleForm);
+  const [formData, setFormData] = useReducer(formReducer, {});
+  const formId = useSelector((state) => state.app.client.formId);
 
-  return <div>{!visible ? <AddUserForm /> : <UpdateUserForm />}</div>;
+  return (
+    <div>
+      {formId
+        ? UpdateUserForm({ formId, formData, setFormData })
+        : AddUserForm({ formData, setFormData })}
+    </div>
+  );
 };

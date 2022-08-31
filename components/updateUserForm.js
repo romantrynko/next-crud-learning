@@ -1,31 +1,30 @@
-import { useReducer } from 'react';
 import { BiBrush } from 'react-icons/bi';
-import { Error } from './error';
+import { useQuery } from 'react-query';
+import { getUser } from '../lib/helper';
 
-const formReducer = (state, event) => {
-  return {
-    ...state,
-    [event.target.name]: event.target.value
-  };
-};
+export const UpdateUserForm = ({ formId, formData, setFormData }) => {
+  const { isLoading, isError, data, error } = useQuery(['users', formId], () =>
+    getUser(formId)
+  );
 
-export const UpdateUserForm = () => {
-  const [formData, setFormData] = useReducer(formReducer, {});
+  if (isLoading) return <div>Loading</div>;
+  if (isError) return <div>Error</div>;
+
+  const { name, avatar, salary, date, email, status } = data;
+  const [firstname, lastname] = name ? name.split(' ') : formData;
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     if (Object.keys(formData).length === 0) return console.log('Empty data');
     console.log(formData);
   };
-
-  // if (Object.keys(formData).length > 0)
-  //   return <Error message="Data added"></Error>;
 
   return (
     <form onSubmit={handleSubmit} className="grid lg:grid-cols-2 w-4/6 gap-4">
       <div className="input-type">
         <input
           onChange={setFormData}
+          defaultValue={firstname}
           type="text"
           name="firstname"
           placeholder="First Name"
@@ -35,6 +34,7 @@ export const UpdateUserForm = () => {
       <div className="input-type">
         <input
           onChange={setFormData}
+          defaultValue={lastname}
           type="text"
           name="lastname"
           placeholder="Last Name"
@@ -44,6 +44,7 @@ export const UpdateUserForm = () => {
       <div className="input-type">
         <input
           onChange={setFormData}
+          defaultValue={email}
           type="text"
           name="email"
           placeholder="Email"
@@ -53,6 +54,7 @@ export const UpdateUserForm = () => {
       <div className="input-type">
         <input
           onChange={setFormData}
+          defaultValue={salary}
           type="text"
           name="salary"
           placeholder="Salary"
@@ -63,6 +65,7 @@ export const UpdateUserForm = () => {
       <div className="input-type">
         <input
           onChange={setFormData}
+          defaultValue={date}
           type="date"
           name="date"
           placeholder="Salary"
@@ -74,6 +77,7 @@ export const UpdateUserForm = () => {
         <div className="form-check">
           <input
             onChange={setFormData}
+            defaultChecked={status == "Active"}
             type="radio"
             name="status"
             value="Active"
@@ -87,6 +91,7 @@ export const UpdateUserForm = () => {
         <div className="form-check">
           <input
             onChange={setFormData}
+            defaultChecked={status == "Inactive"}
             type="radio"
             name="status"
             value="Inactive"

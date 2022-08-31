@@ -1,14 +1,16 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BiUserPlus } from 'react-icons/bi';
 import { Form } from '../components/form';
 import { Table } from '../components/table';
+import { toggleChangeAction } from '../redux/reducer';
 
 export default function Home() {
-  const [visible, setVisible] = useState(false);
+  const visible = useSelector((state) => state.app.client.toggleForm);
+  const dispatch = useDispatch();
 
   const handler = () => {
-    setVisible(!visible);
+    dispatch(toggleChangeAction());
   };
 
   return (
@@ -34,7 +36,7 @@ export default function Home() {
                 <>
                   Add Employee
                   <span className="px-1">
-                    <BiUserPlus size={23}></BiUserPlus>
+                    <BiUserPlus size={23}/>
                   </span>
                 </>
               ) : (
@@ -44,7 +46,7 @@ export default function Home() {
           </div>
         </div>
         <div className="container mx-auto py-6">
-          {visible ? <Form></Form> : <></>}
+          {visible ? <Form/> : <></>}
         </div>
 
         <div className="container mx-auto">

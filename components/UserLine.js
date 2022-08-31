@@ -1,18 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleChangeAction } from '../redux/reducer';
+import { toggleChangeAction, updateAction } from '../redux/reducer';
 import { BiEdit, BiTrashAlt } from 'react-icons/bi';
 
-const UserLine = ({ id, name, avatar, email, salary, date, status }) => {
-  const dispatch = useDispatch();
+const UserLine = ({ _id, name, avatar, email, salary, date, status }) => {
   const visible = useSelector((state) => state.app.client.toggleForm);
-
+  const dispatch = useDispatch();
 
   const onUpdate = () => {
     dispatch(toggleChangeAction());
+    if (visible) {
+      dispatch(updateAction(_id));
+    }
   };
 
   return (
-    <tr className='border-b border-gray-300 '>
+    <tr className="border-b border-gray-300 ">
       <td className="px-16 py-2 flex flex-row items-center">
         <img src={avatar || '#'} alt="img" className="rounded-full" />
         <span className="text-center ml-2 font-semibold">
