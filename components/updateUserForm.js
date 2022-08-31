@@ -2,7 +2,7 @@ import { BiBrush } from 'react-icons/bi';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getUser, updateUser, getUsers } from '../lib/helper';
 
-export const UpdateUserForm = ({ formId, formData, setFormData }) => {
+const UpdateUserForm = ({ formId, formData, setFormData }) => {
   const queryClient = useQueryClient();
 
   const { isLoading, isError, data, error } = useQuery(['users', formId], () =>
@@ -126,3 +126,5 @@ export const UpdateUserForm = ({ formId, formData, setFormData }) => {
     </form>
   );
 };
+
+export default UpdateUserForm;

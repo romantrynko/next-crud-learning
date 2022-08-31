@@ -1,5 +1,5 @@
-import { AddUserForm } from './addUserForm';
-import { UpdateUserForm } from './updateUserForm';
+import AddUserForm from './addUserForm';
+import UpdateUserForm from './updateUserForm';
 import { useSelector } from 'react-redux';
 import { useReducer } from 'react';
 
@@ -10,7 +10,7 @@ const formReducer = (state, event) => {
   };
 };
 
-export const Form = () => {
+const Form = () => {
   const [formData, setFormData] = useReducer(formReducer, {});
   const formId = useSelector((state) => state.app.client.formId);
 
@@ -22,3 +22,5 @@ export const Form = () => {
     </div>
   );
 };
+
+export default Form;

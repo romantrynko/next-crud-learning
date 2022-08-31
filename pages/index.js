@@ -9,7 +9,8 @@ import { deleteUser, getUsers } from '../lib/helper';
 import { useQueryClient } from 'react-query';
 
 export default function Home() {
-  const { visible, deleteId } = useSelector((state) => state.app.client);
+  const visible = useSelector((state) => state.app.client.visible);
+  const deleteId = useSelector((state) => state.app.client.deleteId);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 

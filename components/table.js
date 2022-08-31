@@ -1,6 +1,5 @@
 import { getUsers } from '../lib/helper';
 import { useQuery } from 'react-query';
-import { useSelector } from 'react-redux';
 import UserLine from './UserLine';
 
 export const Table = () => {

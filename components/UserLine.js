@@ -5,12 +5,11 @@ import {
   updateAction
 } from '../redux/reducer';
 import { BiEdit, BiTrashAlt } from 'react-icons/bi';
-import { useQueryClient } from 'react-query';
 
 const UserLine = ({ _id, name, avatar, email, salary, date, status }) => {
   const visible = useSelector((state) => state.app.client.toggleForm);
   const dispatch = useDispatch();
-
+  
   const onUpdate = () => {
     dispatch(toggleChangeAction(_id));
     if (visible) {

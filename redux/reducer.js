@@ -8,7 +8,7 @@ const initialState = {
   }
 };
 
-export const reducerSlice = createSlice({
+export const ReducerSlice = createSlice({
   name: 'crudapp',
   initialState,
   reducers: {
@@ -24,6 +24,6 @@ export const reducerSlice = createSlice({
   }
 });
 
-export const { toggleChangeAction, updateAction, deleteAction } = reducerSlice.actions;
+export const { toggleChangeAction, updateAction, deleteAction } = ReducerSlice.actions;
 
-export default reducerSlice.reducer;
+export default ReducerSlice.reducer;

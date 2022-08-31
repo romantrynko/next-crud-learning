@@ -5,7 +5,7 @@ import { Success } from './success';
 import { useQueryClient, useMutation } from 'react-query';
 import { addUser, getUsers } from '../lib/helper';
 
-export const AddUserForm = ({ formData, setFormData }) => {
+const AddUserForm = ({ formData, setFormData }) => {
   const queryClient = useQueryClient();
   const addMutation = useMutation(addUser, {
     onSuccess: () => {
@@ -126,3 +126,5 @@ export const AddUserForm = ({ formData, setFormData }) => {
     </form>
   );
 };
+
+export default AddUserForm;
