@@ -3,8 +3,8 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { getUser, updateUser, getUsers } from '../lib/helper';
 
 const UpdateUserForm = ({ formId, formData, setFormData }) => {
-  const queryClient = useQueryClient();
 
+  const queryClient = useQueryClient();
   const { isLoading, isError, data, error } = useQuery(['users', formId], () =>
     getUser(formId)
   );

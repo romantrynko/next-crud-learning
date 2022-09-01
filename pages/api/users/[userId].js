@@ -1,7 +1,7 @@
 import connectMongo from '../../../database/connection';
 import { deleteUser, getUser, putUser } from '../../../database/controller';
 
-const userHandler = async (req, res) => {
+const handler = async (req, res) => {
   connectMongo().catch(() =>
     res.status(405).json({ error: 'Error in the connection' })
   );
@@ -28,4 +28,4 @@ const userHandler = async (req, res) => {
   }
 };
 
-export default userHandler;
+export default handler;

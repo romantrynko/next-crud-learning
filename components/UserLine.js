@@ -7,6 +7,7 @@ import {
 import { BiEdit, BiTrashAlt } from 'react-icons/bi';
 
 const UserLine = ({ _id, name, avatar, email, salary, date, status }) => {
+
   const visible = useSelector((state) => state.app.client.toggleForm);
   const dispatch = useDispatch();
   
@@ -50,7 +51,7 @@ const UserLine = ({ _id, name, avatar, email, salary, date, status }) => {
         <button className="cursor">
           <span
             className={`${
-              status === 'Active' ? 'bg-green-500' : 'bg-rose-500'
+              status == 'Active' ? 'bg-green-500' : 'bg-rose-500'
             } text-white px-5 py-1 rounded-full`}
           >
             {status || 'Uknown'}

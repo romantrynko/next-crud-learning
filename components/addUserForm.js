@@ -15,9 +15,7 @@ const AddUserForm = ({ formData, setFormData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (Object.keys(formData).length === 0) return console.log('Empty data');
-
     let { firstname, lastname, email, salary, date, status } = formData;
 
     let num = Math.floor(Math.random() * 10);

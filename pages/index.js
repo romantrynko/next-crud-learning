@@ -1,15 +1,15 @@
 import Head from 'next/head';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiUserPlus } from 'react-icons/bi';
-import { Form } from '../components/form';
 import { Table } from '../components/table';
 import { deleteAction, toggleChangeAction } from '../redux/reducer';
-import DeleteComponent from '../components/deleteComponent';
 import { deleteUser, getUsers } from '../lib/helper';
 import { useQueryClient } from 'react-query';
+import DeleteComponent from '../components/deleteComponent';
+import Form from '../components/form';
 
 export default function Home() {
-  const visible = useSelector((state) => state.app.client.visible);
+  const visible = useSelector((state) => state.app.client.toggleForm);
   const deleteId = useSelector((state) => state.app.client.deleteId);
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
@@ -48,7 +48,7 @@ export default function Home() {
           <div className="left flex gap-3">
             <button
               onClick={handler}
-              className="flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-gray-50 hover:border-indigo-500 hover:text-gray-800"
+              className="flex bg-indigo-500 text-white px-4 py-2 border rounded-md hover:bg-indigo-200 hover:border-indigo-500 hover:text-indigo-700"
             >
               {!visible ? (
                 <>

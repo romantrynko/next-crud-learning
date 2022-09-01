@@ -2,7 +2,7 @@ import connectMongo from '../../../database/connection';
 import {
   deleteUser,
   getUsers,
-  postUsers,
+  postUser,
   putUser
 } from '../../../database/controller';
 
@@ -19,7 +19,7 @@ const handler = async (req, res) => {
       // res.status(200).json({ method, name: 'GET Request' });
       break;
     case 'POST':
-      postUsers(req, res);
+      postUser(req, res);
       // res.status(200).json({ method, name: 'POST Request' });
       break;
     case 'PUT':

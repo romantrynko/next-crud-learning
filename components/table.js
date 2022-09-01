@@ -4,10 +4,10 @@ import UserLine from './UserLine';
 
 export const Table = () => {
 
-  const { isLoading, error, data } = useQuery('users', getUsers);
+  const { isLoading, isError, error, data } = useQuery('users', getUsers);
 
   if (isLoading) return <div>Employee is loading</div>;
-  if (error) return <div>Got Error {error}</div>;
+  if (isError) return <div>Got Error {error}</div>;
 
   return (
     <table className="min-w-full table-auto">

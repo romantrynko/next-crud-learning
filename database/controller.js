@@ -27,7 +27,7 @@ export const getUser = async (req, res) => {
 };
 
 // post: http://localhost:3000/api/users
-export async function postUsers(req, res) {
+export async function postUser(req, res) {
   try {
     const formData = req.body;
     if (!formData)
@@ -50,6 +50,7 @@ export async function putUser(req, res) {
       const user = await Users.findByIdAndUpdate(userId, formData);
       res.status(200).json(user);
     }
+    
     res.status(404).json({ error: 'User is not selected' });
   } catch (error) {
     res.status(404).json({ error: 'Error while updating the Data!' });
